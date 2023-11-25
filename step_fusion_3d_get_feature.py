@@ -52,18 +52,18 @@ if __name__ == "__main__":
                         help='frame width')
 
     # Inputs
-    parser.add_argument('--path_video_train', type=str, default='/home/sliang/data/video_train.pkl',
+    parser.add_argument('--path_video_train', type=str, default='./data/video_train.pkl',
                         help='Path to the video training data (default: ./data/video_train.pkl')
-    parser.add_argument('--path_video_val', type=str, default='/home/sliang/data/video_val.pkl',
+    parser.add_argument('--path_video_val', type=str, default='./data/video_val.pkl',
                         help='Path to the video validation data (default: ./data/video_val.pkl')
-    parser.add_argument('--path_video_test', type=str, default='/home/sliang/data/video_test.pkl',
+    parser.add_argument('--path_video_test', type=str, default='./data/video_test.pkl',
                         help='Path to the video test data (default: ./data/video_test.pkl')
     
-    parser.add_argument('--path_label_train', type=str, default='/home/sliang/data/label_train.pkl',
+    parser.add_argument('--path_label_train', type=str, default='./data/label_train.pkl',
                         help='Path to training label (default: ./data/label_train.pkl')
-    parser.add_argument('--path_label_val', type=str, default='/home/sliang/data/label_val.pkl',
+    parser.add_argument('--path_label_val', type=str, default='./data/label_val.pkl',
                         help='Path to validation label (default: ./data/label_val.pkl')
-    parser.add_argument('--path_label_test', type=str, default='/home/sliang/data/label_test.pkl',
+    parser.add_argument('--path_label_test', type=str, default='./data/label_test.pkl',
                         help='Path to validation label (default: ./data/label_test.pkl')
     
     # Outputs

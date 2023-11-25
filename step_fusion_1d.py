@@ -60,18 +60,18 @@ if __name__ == "__main__":
                         help='number of frames (time points)')
 
     # Inputs
-    parser.add_argument('--path_kine_train', type=str, default='/home/sliang/data/kine_train.pkl',
+    parser.add_argument('--path_kine_train', type=str, default='./data/kine_train.pkl',
                         help='Path to the kine training data (default: ./data/kine_train.pkl')
-    parser.add_argument('--path_kine_val', type=str, default='/home/sliang/data/kine_val.pkl',
+    parser.add_argument('--path_kine_val', type=str, default='./data/kine_val.pkl',
                         help='Path to the kine validation data (default: ./data/kine_val.pkl')
     
-    parser.add_argument('--path_label_train', type=str, default='/home/sliang/data/label_train.pkl',
+    parser.add_argument('--path_label_train', type=str, default='./data/label_train.pkl',
                         help='Path to training label (default: ./data/label_train.pkl')
-    parser.add_argument('--path_label_val', type=str, default='/home/sliang/data/label_val.pkl',
+    parser.add_argument('--path_label_val', type=str, default='./data/label_val.pkl',
                         help='Path to validation label (default: ./data/label_val.pkl')
     
     # Outputs
-    parser.add_argument('--outpath', type=str, default='./saved_models/step_fusion_1d_final/',
+    parser.add_argument('--outpath', type=str, default='./saved_models/step_1d/',
                         help='where to save models')
     parser.add_argument('--logpath', type=str, default='./logs/',
                         help='where to save logs')
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     
     
     # Configure logging
-    logging.basicConfig(filename=args.logpath+'step_1d_final.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.basicConfig(filename=args.logpath+'step_1d.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     seed = args.seed
     torch.manual_seed(seed)
