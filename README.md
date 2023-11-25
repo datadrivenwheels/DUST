@@ -5,6 +5,7 @@ Dual Swin Transformer for video-time-series fusion
 ## Preparation
 
 `$ mkdir data logs saved_models video_features`
+
 `$ mkdir saved_models/step_1d saved_models/step_3d saved_models/step_fusion`
 
 
