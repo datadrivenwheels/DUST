@@ -107,7 +107,7 @@ if __name__ == "__main__":
     val_loader = DataLoader(val_dataset, batch_size=bsize, shuffle=False)
     
     logging.info('----- Define 1D swin -----')
-    model = SwinTransformerV2_1D(seq_len=51, 
+    model = SwinTransformer_1D(seq_len=51, 
                                  in_chans=3, 
                                  num_classes=3,
                                  window_size=8, 

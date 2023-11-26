@@ -44,7 +44,7 @@ def evaluate_test_loss(model, test_loader, criterion, epoch, outpath):
     total = 0
     with torch.no_grad():
         for inputs_3d, labels in test_loader:
-            inputs_3d, labels = inputs_3d.to(device), labels.to(device)
+            inputs_3d, labels = inputs_3d.float().to(device), labels.to(device)
 
             outputs = model(inputs_3d)
             test_loss = criterion(outputs, labels)
@@ -171,7 +171,7 @@ if __name__ == "__main__":
         for i, (inputs_3d, labels) in enumerate(train_loader, 0):
             if i % 50 ==0:
                 logging.info('---- '+str(i)+' th -----')
-            inputs_3d, labels = inputs_3d.to(device), labels.to(device)
+            inputs_3d, labels = inputs_3d.float().to(device), labels.to(device)
             optimizer.zero_grad()
 
             outputs = model(inputs_3d)

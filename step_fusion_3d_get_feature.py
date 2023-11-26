@@ -42,8 +42,8 @@ if __name__ == "__main__":
                         help='random seed (default: 93728645)')
     
     # Model
-    parser.add_argument('--path_3d_model', type=str, default='./saved_models/step_fusion_3d/swin_3d_pre_train.pth',
-                        help='Path to pre-trained swin 3d model (default: ./saved_models/step_fusion_3d/swin_3d_pre_train.pth')
+    parser.add_argument('--path_3d_model', type=str, default='./saved_models/step_3d/final_3d.pth',
+                        help='Path to pre-trained swin 3d model (default: ./saved_models/step_3d/final_3d.pth')
     parser.add_argument('--num_frames', type=int, default=77,
                         help='number of frames (time points)')
     parser.add_argument('--height', type=int, default=224,
