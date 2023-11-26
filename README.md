@@ -131,3 +131,36 @@ The training process is divided into several stages:
      ```
      python step_fusion.py
      ```
+   - step_fusion.py: Script Configuration
+
+   - The `step_fusion.py` script is an essential component for the final stage of the DUST model's training, focusing on the fusion of video and kinematic data. It is configured through the following arguments:
+
+      - Training Parameters
+         
+         - `--batch_size`: Sets the batch size for training (default: 2000).
+         - `--num_epochs`: Determines the number of training epochs (default: 200).
+         - `--lr`: Specifies the learning rate (default: 0.0003).
+         - `--seed`: Sets a random seed for reproducibility (default: 93728645).
+         - `--print_every`: Defines the interval of epochs for validation and model saving (default: 1).
+
+      - Model Configuration
+         
+         - `--path_1d_model`: Path to the pre-trained swin 1d model (default: './saved_models/step_1d/final_1d.pth').
+         - `--num_frames`: Number of frames or time points (default: 51).
+         - `--num_channels`: Number of channels (default: 3).
+
+      - Input Paths
+         
+         - `--path_kine_train`: Location of the kinematic training data (default: './data/kine_train.pkl').
+         - `--path_kine_val`: Location of the kinematic validation data (default: './data/kine_val.pkl').
+         - `--path_vidfeat_train`: Path to the training video features (default: './video_features/train_3d_features.pkl').
+         - `--path_vidfeat_val`: Path to the validation video features (default: './video_features/val_3d_features.pkl').
+         - `--path_label_train`: Path to training label data (default: './data/label_train.pkl').
+         - `--path_label_val`: Path to validation label data (default: './data/label_val.pkl').
+
+      - Output Paths
+         
+         - `--outpath`: Directory to save the final fused models (default: './saved_models/step_fusion/').
+         - `--logpath`: Directory for saving logs (default: './logs/').
+
+This configuration caters to the intricate process of fusing video and kinematic data, representing the culmination of the DUST model's training protocol.
