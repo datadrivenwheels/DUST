@@ -186,3 +186,14 @@ The training process is divided into several stages:
          - `--logpath`: Directory for saving logs (default: './logs/').
 
 This configuration caters to the intricate process of fusing video and kinematic data, representing the culmination of the DUST model's training protocol.
+
+## Acknowledgments
+
+This project has been greatly influenced and derives key components from the following repositories:
+
+1. **Video Swin Transformer in PyTorch**: Our work incorporates elements from the Video Swin Transformer implementation available at [haofanwang/video-swin-transformer-pytorch](https://github.com/haofanwang/video-swin-transformer-pytorch). We extend our gratitude to Haofan Wang and contributors for their pioneering work in the field of video processing with transformers.
+
+2. **Swin Transformer 1D**: Elements of our project are inspired by the Swin Transformer 1D, accessible at [meraks/Swin-Transformer-1D](https://github.com/meraks/Swin-Transformer-1D). We acknowledge the efforts of Merak and their contributors in adapting Swin Transformer architectures for 1D data processing, which has significantly informed our approach.
+
+We thank these contributors for their open-source work, which has been instrumental in shaping our project.
+
