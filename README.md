@@ -123,7 +123,7 @@ The training process is divided into several stages:
          - `--outpath`: Directory to save extracted video features (default: './video_features/').
          - `--logpath`: Directory for saving logs (default: './logs/').
 
-   - These configurations enable the extraction of features from video data, an essential step in the DUST model's training and analysis process.
+   - These configurations enable the extraction of features from video data.
 
 
 4. **Stage 4: Update Time-Series Model**
