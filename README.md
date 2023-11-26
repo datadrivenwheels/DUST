@@ -31,6 +31,31 @@ The training process is divided into several stages:
      ```
      python step_fusion_1d.py
      ```
+   - step_fusion_1d.py: Script Configuration
+
+   - The `step_fusion_1d.py` script, a key part of the DUST model's training, utilizes several arguments:
+
+      - Training Parameters
+         - `--batch_size`: Input batch size (default: 2000).
+         - `--num_epochs`: Number of epochs (default: 200).
+         - `--lr`: Learning rate (default: 0.0003).
+         - `--seed`: Random seed (default: 93728645).
+         - `--print_every`: Epoch interval for validation/model saving (default: 1).
+
+      - Model Settings
+         - `--num_frames`: Number of frames (default: 51).
+         - `--num_channels`: Number of channels (default: 3).
+
+      - Input/Output Paths
+         - `--path_kine_train`: Kinematic training data path (default: './data/kine_train.pkl').
+         - `--path_kine_val`: Kinematic validation data path (default: './data/kine_val.pkl').
+         - `--path_label_train`: Training labels path (default: './data/label_train.pkl').
+         - `--path_label_val`: Validation labels path (default: './data/label_val.pkl').
+         - `--outpath`: Model saving directory (default: './saved_models/step_1d/').
+         - `--logpath`: Log directory (default: './logs/').
+
+   - These configurations provide detailed control for the time-series model training in the DUST framework.
+
 
 3. **Stage 3: Extract Video Features**
    - After training the video model, extract features from videos with:
