@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from models.video_swin_transformer import SwinTransformer3D
+from models.video_swin_transformer_feature import SwinTransformer3D as SwinTransformer3D_feat
 from torch.utils.data import Dataset, DataLoader, TensorDataset
 
 import cv2
@@ -56,15 +57,12 @@ if __name__ == "__main__":
                         help='Path to the video training data (default: ./data/video_train.pkl')
     parser.add_argument('--path_video_val', type=str, default='./data/video_val.pkl',
                         help='Path to the video validation data (default: ./data/video_val.pkl')
-    parser.add_argument('--path_video_test', type=str, default='./data/video_test.pkl',
-                        help='Path to the video test data (default: ./data/video_test.pkl')
     
     parser.add_argument('--path_label_train', type=str, default='./data/label_train.pkl',
                         help='Path to training label (default: ./data/label_train.pkl')
     parser.add_argument('--path_label_val', type=str, default='./data/label_val.pkl',
                         help='Path to validation label (default: ./data/label_val.pkl')
-    parser.add_argument('--path_label_test', type=str, default='./data/label_test.pkl',
-                        help='Path to validation label (default: ./data/label_test.pkl')
+
     
     # Outputs
     parser.add_argument('--outpath', type=str, default='./video_features/',
@@ -95,23 +93,19 @@ if __name__ == "__main__":
   
     video_train = torch.from_numpy(pd.read_pickle(args.path_video_train).astype('float32'))
     video_val = torch.from_numpy(pd.read_pickle(args.path_video_val).astype('float32'))
-    video_test = torch.from_numpy(pd.read_pickle(args.path_video_test).astype('float32'))
     
     label_train = torch.from_numpy(pd.read_pickle(args.path_label_train))
     label_val = torch.from_numpy(pd.read_pickle(args.path_label_val))
-    label_test = torch.from_numpy(pd.read_pickle(args.path_label_test))
     
     train_dataset = TensorDataset(video_train, label_train)
     train_loader = DataLoader(train_dataset, batch_size=bsize, shuffle=True)
 
     val_dataset = TensorDataset(video_val, label_val)
     val_loader = DataLoader(val_dataset, batch_size=bsize, shuffle=False)
-    
-    test_dataset = TensorDataset(video_test, label_test)
-    test_loader = DataLoader(test_dataset, batch_size=bsize, shuffle=False)
+
     
     logging.info('---- Define 3D swin ----')
-    model = SwinTransformer3D(drop_path_rate=0.1,
+    model = SwinTransformer3D_feat(drop_path_rate=0.1,
                                mlp_ratio=4.0,
                                patch_norm=True,
                                patch_size=(2,4,4,),
@@ -121,7 +115,7 @@ if __name__ == "__main__":
 
     video_model_params = torch.load(args.path_3d_model)
     partial_state_dict = {key: value for key, value in video_model_params.items() if not key.startswith('head')}
-    model.load_state_dict(partial_state_dict)
+    model.load_state_dict(partial_state_dict, strict=False)
     
     model = model.to(device)
     
@@ -137,12 +131,6 @@ if __name__ == "__main__":
         pickle.dump(val_features, f)
     logging.info('saved val')
 
-    logging.info('test loader')
-    test_features = get_features(model, test_loader, device)
-    with open(args.outpath+'test_3d_features.pkl', 'wb') as f:
-        pickle.dump(test_features, f)
-    logging.info('saved test')
-    
     
 
 

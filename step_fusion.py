@@ -57,8 +57,8 @@ if __name__ == "__main__":
                         help='epoch interval for validation and model saving (e.g., 1 for every 1 epoch).')
 
     # Model
-    parser.add_argument('--path_1d_model', type=str, default='./saved_models/step_fusion_1d_final/e1_50.0.pth',
-                        help='Path to pre-trained swin 3d model (default: ./saved_models/step_fusion_1d_final/e1_50.0.pth')
+    parser.add_argument('--path_1d_model', type=str, default='./saved_models/step_1d/final_1d.pth',
+                        help='Path to pre-trained swin 3d model (default: ./saved_models/step_1d/final_1d.pth')
     parser.add_argument('--num_frames', type=int, default=51,
                         help='number of frames (time points)')
 
@@ -67,22 +67,16 @@ if __name__ == "__main__":
                         help='Path to the kine training data (default: ./data/kine_train.pkl')
     parser.add_argument('--path_kine_val', type=str, default='./data/kine_val.pkl',
                         help='Path to the kine validation data (default: ./data/kine_val.pkl')
-    parser.add_argument('--path_kine_test', type=str, default='./data/kine_test.pkl',
-                        help='Path to the kine test data (default: ./data/kine_test.pkl')
-    
+
     parser.add_argument('--path_vidfeat_train', type=str, default='./video_features/train_3d_features.pkl',
                         help='Path to the training video feature (default: ./video_features/train_3d_features.pkl')
     parser.add_argument('--path_vidfeat_val', type=str, default='./video_features/val_3d_features.pkl',
                         help='Path to the validation video feature (default: ./video_features/val_3d_features.pkl')
-    parser.add_argument('--path_vidfeat_test', type=str, default='./video_features/test_3d_features.pkl',
-                        help='Path to the test video feature (default: ./video_features/test_3d_features.pkl')
     
     parser.add_argument('--path_label_train', type=str, default='./data/label_train.pkl',
                         help='Path to training label (default: ./data/label_train.pkl')
     parser.add_argument('--path_label_val', type=str, default='./data/label_val.pkl',
                         help='Path to validation label (default: ./data/label_val.pkl')
-    parser.add_argument('--path_label_test', type=str, default='./data/label_test.pkl',
-                        help='Path to test label (default: ./data/label_test.pkl')
     
     # Outputs
     parser.add_argument('--outpath', type=str, default='./saved_models/step_fusion/',
@@ -111,15 +105,12 @@ if __name__ == "__main__":
       
     X_train = torch.from_numpy(pd.read_pickle(args.path_kine_train).astype('float32'))
     X_val = torch.from_numpy(pd.read_pickle(args.path_kine_val).astype('float32'))
-    X_test = torch.from_numpy(pd.read_pickle(args.path_kine_test).astype('float32'))
     
     X_add_train = torch.from_numpy(pd.read_pickle(args.path_vidfeat_train).astype('float32'))
     X_add_val = torch.from_numpy(pd.read_pickle(args.path_vidfeat_val).astype('float32'))
-    X_add_test = torch.from_numpy(pd.read_pickle(args.path_vidfeat_test).astype('float32'))
 
     label_train = torch.from_numpy(pd.read_pickle(args.path_label_train))
     label_val = torch.from_numpy(pd.read_pickle(args.path_label_val))
-    label_test = torch.from_numpy(pd.read_pickle(args.path_label_test))
     
     train_dataset = TensorDataset(X_train, label_train, X_add_train)
     train_loader = DataLoader(train_dataset, batch_size=bsize, shuffle=True)
@@ -127,11 +118,9 @@ if __name__ == "__main__":
     val_dataset = TensorDataset(X_val, label_val, X_add_val)
     val_loader = DataLoader(val_dataset, batch_size=bsize, shuffle=False)
     
-    test_dataset = TensorDataset(X_test, label_val, X_add_test)
-    test_loader = DataLoader(test_dataset, batch_size=bsize, shuffle=False)
-    
+
     logging.info('----- Define 1D swin -----')
-    model = SwinTransformerV2_1D_fusion(seq_len=51, 
+    model = SwinTransformer_1D_fusion(seq_len=51, 
                                         in_chans=3, 
                                         num_classes=3,
                                         window_size=8, 

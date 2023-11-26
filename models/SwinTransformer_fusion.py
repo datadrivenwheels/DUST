@@ -696,11 +696,11 @@ class SwinTransformer_1D(nn.Module):
     def forward(self, x, additional_input):
         # Process x through Swin Transformer
         x = self.forward_features(x)
-        
+
         additional_input = additional_input.view(additional_input.size(0), -1)
 
         x = torch.cat((x, additional_input), dim=1)
-
+        
         x = self.head(x)
 
         return x
