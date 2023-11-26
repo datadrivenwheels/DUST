@@ -26,6 +26,38 @@ The training process is divided into several stages:
      python step_fusion_3d.py
      ```
 
+   - step_fusion_3d.py: Script Configuration
+
+   - The `step_fusion_3d.py` script is crucial for training the video model in the DUST framework. It includes several configuration options:
+
+      - Training Parameters
+     
+         - `--batch_size`: Sets the batch size for training (default: 9).
+         - `--num_epochs`: Determines the number of training epochs (default: 100).
+         - `--lr`: Specifies the learning rate (default: 0.00001).
+         - `--seed`: Sets a random seed for reproducibility (default: 93728645).
+         - `--print_every`: Defines the interval of epochs for validation and model saving (default: 3).
+
+      - Model Configuration
+        
+         - `--num_frames`: Number of frames or time points (default: 77).
+         - `--height`: Height of each frame (default: 224).
+         - `--width`: Width of each frame (default: 224).
+
+      - Input Paths
+    
+         - `--path_video_train`: Path to the video training data (default: './data/video_train.pkl').
+         - `--path_video_val`: Path to the video validation data (default: './data/video_val.pkl').
+         - `--path_label_train`: Location of the training label data (default: './data/label_train.pkl').
+         - `--path_label_val`: Location of the validation label data (default: './data/label_val.pkl').
+
+      - Output Paths
+         - `--outpath`: Directory to save the trained models (default: './saved_models/step_3d/').
+         - `--logpath`: Directory for saving logs (default: './logs/').
+
+   - These configurations allow for fine-tuning of the video model training process in the DUST project.
+
+
 2. **Stage 2: Train Time-Series Model**
    - Next, train the time-series model using:
      ```
