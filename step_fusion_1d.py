@@ -58,6 +58,8 @@ if __name__ == "__main__":
     # Model
     parser.add_argument('--num_frames', type=int, default=51,
                         help='number of frames (time points)')
+    parser.add_argument('--num_channels', type=int, default=3,
+                        help='number of channels (default: 3)')
 
     # Inputs
     parser.add_argument('--path_kine_train', type=str, default='./data/kine_train.pkl',
@@ -92,9 +94,13 @@ if __name__ == "__main__":
     np.random.seed(seed)
     
     logging.info('----- Define Data Loader -----')
+    print('----- Define Data Loader -----')
     bsize=args.batch_size
+    seq_len = args.num_frames
+    num_chl = args.num_channels
     logging.info(f'batch size {bsize}')
-      
+    print(f'batch size {bsize}')
+
     X_train = torch.from_numpy(pd.read_pickle(args.path_kine_train).astype('float32'))
     X_val = torch.from_numpy(pd.read_pickle(args.path_kine_val).astype('float32'))
     label_train = torch.from_numpy(pd.read_pickle(args.path_label_train))
@@ -107,8 +113,10 @@ if __name__ == "__main__":
     val_loader = DataLoader(val_dataset, batch_size=bsize, shuffle=False)
     
     logging.info('----- Define 1D swin -----')
-    model = SwinTransformer_1D(seq_len=51, 
-                                 in_chans=3, 
+    print('----- Define 1D swin -----')
+
+    model = SwinTransformer_1D(seq_len=seq_len, 
+                                 in_chans=num_chl, 
                                  num_classes=3,
                                  window_size=8, 
                                  # drop_rate=0.3, 
@@ -125,12 +133,15 @@ if __name__ == "__main__":
     print_every = args.print_every
     lr = args.lr
     logging.info(f'learning rate = {lr}')
-    
+    print(f'learning rate = {lr}')
+
     # Set loss function and optimizer
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr, betas=(0.9,0.999), weight_decay=0.02)    
     
     logging.info('start training')
+    print('start training')
+
     test_loss_list = []
     test_acc_list = []
     epoch_list = []
@@ -156,13 +167,16 @@ if __name__ == "__main__":
             epoch_list.append(epoch+1)
             test_loss_item, test_acc_item = evaluate_test_loss(model, val_loader, criterion, epoch+1, outpath)
             logging.info(f"Epoch: {epoch + 1}/{num_epochs}, Train Loss: {running_loss / len(train_loader)}, Val Loss: {test_loss_item}, Val Acc: {test_acc_item}")
+            print(f"Epoch: {epoch + 1}/{num_epochs}, Train Loss: {running_loss / len(train_loader)}, Val Loss: {test_loss_item}, Val Acc: {test_acc_item}")
             test_loss_list.append(test_loss_item)
             test_acc_list.append(test_acc_item)
 
 
     logging.info("Training completed!")
+    print("Training completed!")
     
     torch.save(model.state_dict(), outpath+'final_1d.pth')
     np.save(outpath+'val_loss.npy', np.array(test_loss_list))
     np.save(outpath+'val_acc.npy', np.array(test_acc_list))
     logging.info(f'epoch {epoch_list[np.argmin(test_loss_list)]} minimize val loss (index start from 1)')
+    print(f'epoch {epoch_list[np.argmin(test_loss_list)]} minimize val loss (index start from 1)')

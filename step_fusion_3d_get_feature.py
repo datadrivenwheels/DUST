@@ -86,10 +86,14 @@ if __name__ == "__main__":
     np.random.seed(seed)
     
     logging.info('----- Define Data Loader -----')
+    print('----- Define Data Loader -----')
+
     bsize=args.batch_size
     logging.info(f'batch size {bsize}')
+    print(f'batch size {bsize}')
     
     logging.info(f'----- data path {args.path_video_train}')
+    print(f'----- data path {args.path_video_train}')
   
     video_train = torch.from_numpy(pd.read_pickle(args.path_video_train).astype('float32'))
     video_val = torch.from_numpy(pd.read_pickle(args.path_video_val).astype('float32'))
@@ -105,6 +109,8 @@ if __name__ == "__main__":
 
     
     logging.info('---- Define 3D swin ----')
+    print('---- Define 3D swin ----')
+
     model = SwinTransformer3D_feat(drop_path_rate=0.1,
                                mlp_ratio=4.0,
                                patch_norm=True,
@@ -120,16 +126,22 @@ if __name__ == "__main__":
     model = model.to(device)
     
     logging.info('train loader')
+    print('train loader')
+
     train_features = get_features(model, train_loader, device)
     with open(args.outpath+'train_3d_features.pkl', 'wb') as f:
         pickle.dump(train_features, f)
     logging.info('saved train')
+    print('saved train')
 
     logging.info('val loader')
+    print('val loader')
+
     val_features = get_features(model, val_loader, device)
     with open(args.outpath+'val_3d_features.pkl', 'wb') as f:
         pickle.dump(val_features, f)
     logging.info('saved val')
+    print('saved val')
 
     
 

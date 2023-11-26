@@ -119,10 +119,14 @@ if __name__ == "__main__":
     
     
     logging.info('----- Define Data Loader -----')
+    print('----- Define Data Loader -----')
+
     bsize=args.batch_size
     logging.info(f'batch size {bsize}')
+    print(f'batch size {bsize}')
     
     logging.info(f'----- data path {args.path_video_train}')
+    print(f'----- data path {args.path_video_train}')
   
     video_train = torch.from_numpy(pd.read_pickle(args.path_video_train))
     video_val = torch.from_numpy(pd.read_pickle(args.path_video_val))
@@ -136,6 +140,8 @@ if __name__ == "__main__":
     val_loader = DataLoader(val_dataset, batch_size=bsize, shuffle=False)
     
     logging.info('----- Define 3D swin -----')
+    print('----- Define 3D swin -----')
+
     model = SwinTransformer3D(drop_path_rate=0.1,
                                mlp_ratio=4.0,
                                patch_norm=True,
@@ -152,6 +158,7 @@ if __name__ == "__main__":
     print_every = args.print_every
     lr = args.lr
     logging.info(f'learning rate = {lr}')
+    print(f'learning rate = {lr}')
     
     # Set loss function and optimizer
     criterion = nn.CrossEntropyLoss()
@@ -185,14 +192,17 @@ if __name__ == "__main__":
             epoch_list.append(epoch+1)
             test_loss_item, test_acc_item = evaluate_test_loss(model, val_loader, criterion, epoch+1, outpath)
             logging.info(f"Epoch: {epoch + 1}/{num_epochs}, Train Loss: {running_loss / len(train_loader)}, Val Loss: {test_loss_item}, Val Acc: {test_acc_item}")
+            print(f"Epoch: {epoch + 1}/{num_epochs}, Train Loss: {running_loss / len(train_loader)}, Val Loss: {test_loss_item}, Val Acc: {test_acc_item}")
             test_loss_list.append(test_loss_item)
             test_acc_list.append(test_acc_item)
 
 
         scheduler.step()
     logging.info("Training completed!")
+    print("Training completed!")
     
     torch.save(model.state_dict(), outpath+'final_3d.pth')
     np.save(outpath+'val_loss.npy', np.array(test_loss_list))
     np.save(outpath+'val_acc.npy', np.array(test_acc_list))
     logging.info(f'epoch {epoch_list[np.argmin(test_loss_list)]} minimize val loss (index start from 1)')
+    print(f'epoch {epoch_list[np.argmin(test_loss_list)]} minimize val loss (index start from 1)')
