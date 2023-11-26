@@ -1,8 +1,3 @@
-'''
-Credit to the official implementation: https://github.com/SwinTransformer/Video-Swin-Transformer
-'''
-
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -15,9 +10,6 @@ from operator import mul
 from einops import rearrange
 
 import logging
-# from mmcv.utils import get_logger
-# from mmcv.runner import load_checkpoint
-
 
 def get_root_logger(log_file=None, log_level=logging.INFO):
     """Use ``get_logger`` method in mmcv to get the root logger.
