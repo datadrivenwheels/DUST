@@ -95,6 +95,37 @@ The training process is divided into several stages:
      python step_fusion_3d_get_feature.py
      ```
 
+   - step_fusion_3d_get_feature.py: Script Configuration
+
+   - The `step_fusion_3d_get_feature.py` script is designed for extracting features from videos as part of the DUST model's training process. It utilizes several arguments for configuration:
+
+      - Basic Settings
+        
+         - `--batch_size`: Sets the input batch size for training (default: 80).
+         - `--seed`: Specifies a random seed for reproducibility (default: 93728645).
+
+      - Model Configuration
+         
+         - `--path_3d_model`: Path to the pre-trained swin 3d model (default: './saved_models/step_3d/final_3d.pth').
+         - `--num_frames`: Number of frames or time points (default: 77).
+         - `--height`: Height of each frame (default: 224).
+         - `--width`: Width of each frame (default: 224).
+
+      - Input Paths
+         
+         - `--path_video_train`: Location of the video training data (default: './data/video_train.pkl').
+         - `--path_video_val`: Location of the video validation data (default: './data/video_val.pkl').
+         - `--path_label_train`: Path to training label data (default: './data/label_train.pkl').
+         - `--path_label_val`: Path to validation label data (default: './data/label_val.pkl').
+
+      - Output Paths
+         
+         - `--outpath`: Directory to save extracted video features (default: './video_features/').
+         - `--logpath`: Directory for saving logs (default: './logs/').
+
+   - These configurations enable the extraction of features from video data, an essential step in the DUST model's training and analysis process.
+
+
 4. **Stage 4: Update Time-Series Model**
    - Finally, update the time-series model by running:
      ```
