@@ -3,14 +3,36 @@
 
 This project involves the use of a Dual Swin Transformer model to effectively fuse video and time-series data. Below are the steps for preparation, data generation, and training.
 
-## Preparation
-First, create the necessary directories for data storage, logs, and model saving. Run the following commands in your terminal:
+## Environment Setup
 
-`$ mkdir data logs saved_models video_features`
+Follow these steps to set up the environment for the DUST project:
 
-`$ mkdir saved_models/step_1d saved_models/step_3d saved_models/step_fusion`
+### Creating a Conda Environment
 
+1. Create a new conda environment with Python 3.8:
+   
+   ```bash
+   conda create -n dust python=3.8
+   ```
+2. Activate the newly created environment:
+   
+   ```bash
+   conda activate dust
+   ```
+3. Install PyTorch, torchvision, torchaudio, and CUDA support using conda:
 
+   ```bash
+   conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+   ```
+4. Install the necessary Python packages using pip:
+
+   ```bash
+   pip install timm
+   pip install einops
+   pip install opencv-python
+   pip install pandas
+   ```
+   
 ## Generate Toy Data
 To generate toy data for training and testing, run the following command:
 
