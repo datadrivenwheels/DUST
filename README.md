@@ -1,8 +1,10 @@
 # DUST
-Dual Swin Transformer for video-time-series fusion
+**Dual Swin Transformer for Video-Time-Series Fusion**
 
+This project involves the use of a Dual Swin Transformer model to effectively fuse video and time-series data. Below are the steps for preparation, data generation, and training.
 
 ## Preparation
+First, create the necessary directories for data storage, logs, and model saving. Run the following commands in your terminal:
 
 `$ mkdir data logs saved_models video_features`
 
@@ -10,16 +12,34 @@ Dual Swin Transformer for video-time-series fusion
 
 
 ## Generate Toy Data
+To generate toy data for training and testing, run the following command:
 
 `$ python gen_data.py`
 
 
 ## Training
+The training process is divided into several stages:
 
-- `$ python step_fusion_3d.py`: train video model (Stage 1)
+1. **Stage 1: Train Video Model**
+   - Train the video model by executing:
+     ```
+     python step_fusion_3d.py
+     ```
 
-- `$ python step_fusion_1d.py`: train time-series model (Stage 2)
+2. **Stage 2: Train Time-Series Model**
+   - Next, train the time-series model using:
+     ```
+     python step_fusion_1d.py
+     ```
 
-- `$ python step_fusion_3d_get_feature.py`: extract feature from videos using model trained in Stage 1.
+3. **Stage 3: Extract Video Features**
+   - After training the video model, extract features from videos with:
+     ```
+     python step_fusion_3d_get_feature.py
+     ```
 
-- `$ python step_fusion.py`: update time-series model (Stage 3)
+4. **Stage 4: Update Time-Series Model**
+   - Finally, update the time-series model by running:
+     ```
+     python step_fusion.py
+     ```
