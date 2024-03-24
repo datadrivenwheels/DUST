@@ -20,11 +20,11 @@ with open('./data/kine_val.pkl', 'wb') as file:
     pickle.dump(data, file)
     
     
-data = np.random.randint(0, 2, size=30)
+data = np.random.randint(0, 4, size=30)
 with open('./data/label_train.pkl', 'wb') as file:
     pickle.dump(data, file)
     
-data = np.random.randint(0, 2, size=10)
+data = np.random.randint(0, 4, size=10)
 with open('./data/label_val.pkl', 'wb') as file:
     pickle.dump(data, file)
     

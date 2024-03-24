@@ -486,7 +486,7 @@ class SwinTransformer3D(nn.Module):
     """
 
     def __init__(self,
-                 num_classes = 3,
+                 num_classes = 4,
                  pretrained=None,
                  pretrained2d=True,
                  patch_size=(4,4,4),
@@ -684,6 +684,22 @@ class SwinTransformer3D(nn.Module):
         # if return_class_scores and self.head is not None:
         # x = self.cls_dropout(x)
         x = self.head(x)
+        return x
+    
+    def get_vid_feature(self, x):#, return_class_scores=False):
+        """Forward function."""
+        x = self.patch_embed(x)
+
+        x = self.pos_drop(x)
+
+        for layer in self.layers:
+            x = layer(x.contiguous())
+    
+        x = rearrange(x, 'n c d h w -> n d h w c')
+        x = self.norm(x)
+        x = rearrange(x, 'n d h w c -> n c d h w')
+        x = self.avgpool(x)
+        x = torch.flatten(x, 1)
         return x
 
     def train(self, mode=True):

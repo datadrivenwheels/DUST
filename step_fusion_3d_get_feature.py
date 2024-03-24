@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 from models.video_swin_transformer import SwinTransformer3D
-from models.video_swin_transformer_feature import SwinTransformer3D as SwinTransformer3D_feat
 from torch.utils.data import Dataset, DataLoader, TensorDataset
 
 import cv2
@@ -23,7 +22,7 @@ def get_features(model, loader, device):
     with torch.no_grad():
         for i, (video_tensor, label) in enumerate(loader):
             video_tensor = video_tensor.to(device)
-            output = model(video_tensor)
+            output = model.get_vid_feature(video_tensor)
             features.append(output.cpu().numpy())
             
             if (i + 1) % 5 == 0:
@@ -111,7 +110,8 @@ if __name__ == "__main__":
     logging.info('---- Define 3D swin ----')
     print('---- Define 3D swin ----')
 
-    model = SwinTransformer3D_feat(drop_path_rate=0.1,
+    model = SwinTransformer3D(num_classes=4,
+                              drop_path_rate=0.1,
                                mlp_ratio=4.0,
                                patch_norm=True,
                                patch_size=(2,4,4,),
@@ -119,9 +119,8 @@ if __name__ == "__main__":
                                pretrained2d=True,
                                window_size=(8,7,7,))
 
-    video_model_params = torch.load(args.path_3d_model)
-    partial_state_dict = {key: value for key, value in video_model_params.items() if not key.startswith('head')}
-    model.load_state_dict(partial_state_dict, strict=False)
+
+    model.load_state_dict(torch.load(args.path_3d_model))
     
     model = model.to(device)
     

@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
     model = SwinTransformer_1D(seq_len=seq_len, 
                                  in_chans=num_chl, 
-                                 num_classes=3,
+                                 num_classes=4,
                                  window_size=8, 
                                  # drop_rate=0.3, 
                                  patch_size=1,

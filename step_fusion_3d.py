@@ -142,7 +142,8 @@ if __name__ == "__main__":
     logging.info('----- Define 3D swin -----')
     print('----- Define 3D swin -----')
 
-    model = SwinTransformer3D(drop_path_rate=0.1,
+    model = SwinTransformer3D(num_classes=4,
+                              drop_path_rate=0.1,
                                mlp_ratio=4.0,
                                patch_norm=True,
                                patch_size=(2,4,4,),
@@ -177,7 +178,7 @@ if __name__ == "__main__":
 
         for i, (inputs_3d, labels) in enumerate(train_loader, 0):
             if i % 50 ==0:
-                logging.info('---- '+str(i)+' th -----')
+                logging.info('---- '+str(i)+' th batch -----')
             inputs_3d, labels = inputs_3d.float().to(device), labels.to(device)
             optimizer.zero_grad()
 
