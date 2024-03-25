@@ -56,7 +56,7 @@ The training process is divided into several stages:
      
          - `--batch_size`: Sets the batch size for training (default: 9).
          - `--num_epochs`: Determines the number of training epochs (default: 100).
-         - `--lr`: Specifies the learning rate (default: 0.00001).
+         - `--lr`: Specifies the learning rate (default: 0.001).
          - `--seed`: Sets a random seed for reproducibility (default: 93728645).
          - `--print_every`: Defines the interval of epochs for validation and model saving (default: 3).
 

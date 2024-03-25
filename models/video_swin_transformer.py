@@ -516,11 +516,6 @@ class SwinTransformer3D(nn.Module):
         self.frozen_stages = frozen_stages
         self.window_size = window_size
         self.patch_size = patch_size
-
-        # if num_classes is not None:
-        # self.head = nn.Linear(768, num_classes)
-        # else:
-        #     self.head = None
         
         
         # split image into non-overlapping patches
