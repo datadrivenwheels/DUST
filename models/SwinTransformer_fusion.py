@@ -650,9 +650,8 @@ class SwinTransformer_1D(nn.Module):
 
         self.norm = norm_layer(self.num_features)
         self.avgpool = nn.AdaptiveAvgPool1d(1)
-        # mlp_input_features = self.num_features + 768  # 6 for additional_input (N, 3, 2) flattened to (N, 6)
 
-        self.head = nn.Linear(self.num_features + 768, num_classes) if num_classes > 0 else nn.Identity()
+        self.head = nn.Linear(self.num_features + 1024, num_classes) if num_classes > 0 else nn.Identity()
         self.apply(self._init_weights)
         for bly in self.layers:
             bly._init_respostnorm()

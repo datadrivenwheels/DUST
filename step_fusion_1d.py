@@ -119,11 +119,11 @@ if __name__ == "__main__":
                                  in_chans=num_chl, 
                                  num_classes=4,
                                  window_size=8, 
-                                 # drop_rate=0.3, 
+                                 drop_path_rate=0.1, # stochastic depth rate in the paper
                                  patch_size=1,
                                  num_heads=[16, 16, 16, 16], 
                                  depths=[2, 2, 6, 2],
-                                 embed_dim=128)
+                                 embed_dim=256)
     
     device_id = 0
     device = torch.device(f"cuda:{device_id}" if torch.cuda.is_available() else "cpu")
@@ -162,7 +162,11 @@ if __name__ == "__main__":
             optimizer.step()
 
             running_loss += loss.item()
-
+        
+        if (epoch + 1) == 100:
+            optimizer = optim.Adam(model.parameters(), lr=3e-5, betas=(0.9,0.999), weight_decay=0.02)
+            print("Changed learning rate to 3e-5")
+        
         if (epoch + 1) % print_every == 0:
             epoch_list.append(epoch+1)
             test_loss_item, test_acc_item = evaluate_test_loss(model, val_loader, criterion, epoch+1, outpath)

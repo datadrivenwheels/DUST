@@ -69,8 +69,8 @@ if __name__ == "__main__":
                         help='input batch size for training (default: 9)')
     parser.add_argument('--num_epochs', type=int, default=100,
                         help='number of epochs to train (default: 100)')
-    parser.add_argument('--lr', type=float, default=0.00001,
-                        help='learning rate (default: 0.00001)')
+    parser.add_argument('--lr', type=float, default=0.001,
+                        help='learning rate (default: 0.001)')
     parser.add_argument('--seed', type=int, default=93728645,
                         help='random seed (default: 93728645)')
     parser.add_argument('--print_every', type=int, default=3,
@@ -143,11 +143,14 @@ if __name__ == "__main__":
     print('----- Define 3D swin -----')
 
     model = SwinTransformer3D(num_classes=4,
-                              drop_path_rate=0.1,
+                              embed_dim = 128,
                                mlp_ratio=4.0,
                                patch_norm=True,
                                patch_size=(2,4,4,),
-                               pretrained='https://download.openmmlab.com/mmaction/v1.0/recognition/swin/swin_tiny_patch4_window7_224.pth',
+                               drop_path_rate=0.1, # stochastic depth rate in the paper
+                               num_heads=[4,8,16,32],
+                               depth = [2,2,18,2],
+                               pretrained='https://download.openmmlab.com/mmaction/v1.0/recognition/swin/swin_base_patch4_window7_224.pth',
                                pretrained2d=True,
                                window_size=(8,7,7,))
     
@@ -163,7 +166,7 @@ if __name__ == "__main__":
     
     # Set loss function and optimizer
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=lr, betas=(0.9,0.999), weight_decay=0.02)
+    optimizer = optim.AdamW(model.parameters(), lr=lr, betas=(0.9,0.999), weight_decay=0.02)
     scheduler = CombinedLRScheduler(optimizer, num_epochs=num_epochs, end_of_linear=2.5)
     
     
