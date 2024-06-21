@@ -3,6 +3,10 @@
 
 This project involves the use of a Dual Swin Transformer model to effectively fuse video and time-series data. Below are the steps for preparation, data generation, and training.
 
+Related Paper:
+
+[Liang Shi, Yixin Chen, Meimei Liu, Feng Guo; Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops, 2024, pp. 4537-4546](https://openaccess.thecvf.com/content/CVPR2024W/WAD/html/Shi_DuST_Dual_Swin_Transformer_for_Multi-modal_Video_and_Time-Series_Modeling_CVPRW_2024_paper.html)
+
 ## Environment Setup
 
 Follow these steps to set up the environment for the DUST project:
