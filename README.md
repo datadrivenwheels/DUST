@@ -5,7 +5,7 @@ This project involves the use of a Dual Swin Transformer model to effectively fu
 
 Related Paper:
 
-[Liang Shi, Yixin Chen, Meimei Liu, Feng Guo; Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops, 2024, pp. 4537-4546](https://openaccess.thecvf.com/content/CVPR2024W/WAD/html/Shi_DuST_Dual_Swin_Transformer_for_Multi-modal_Video_and_Time-Series_Modeling_CVPRW_2024_paper.html)
+[Shi, L., Chen, Y., Liu, M., & Guo, F. (2024). DuST: Dual Swin Transformer for Multi-modal Video and Time-Series Modeling. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 4537-4546).](https://openaccess.thecvf.com/content/CVPR2024W/WAD/html/Shi_DuST_Dual_Swin_Transformer_for_Multi-modal_Video_and_Time-Series_Modeling_CVPRW_2024_paper.html)
 
 ## Environment Setup
 
