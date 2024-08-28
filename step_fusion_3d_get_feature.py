@@ -111,11 +111,14 @@ if __name__ == "__main__":
     print('---- Define 3D swin ----')
 
     model = SwinTransformer3D(num_classes=4,
-                              drop_path_rate=0.1,
+                              embed_dim = 128,
                                mlp_ratio=4.0,
                                patch_norm=True,
                                patch_size=(2,4,4,),
-                               pretrained='https://download.openmmlab.com/mmaction/v1.0/recognition/swin/swin_tiny_patch4_window7_224.pth',
+                               drop_path_rate=0.1, # stochastic depth rate in the paper
+                               num_heads=[4,8,16,32],
+                               depths = [2,2,18,2],
+                               pretrained='https://download.openmmlab.com/mmaction/v1.0/recognition/swin/swin_base_patch4_window7_224.pth',
                                pretrained2d=True,
                                window_size=(8,7,7,))
 

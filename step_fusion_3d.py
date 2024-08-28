@@ -149,7 +149,7 @@ if __name__ == "__main__":
                                patch_size=(2,4,4,),
                                drop_path_rate=0.1, # stochastic depth rate in the paper
                                num_heads=[4,8,16,32],
-                               depth = [2,2,18,2],
+                               depths = [2,2,18,2],
                                pretrained='https://download.openmmlab.com/mmaction/v1.0/recognition/swin/swin_base_patch4_window7_224.pth',
                                pretrained2d=True,
                                window_size=(8,7,7,))
